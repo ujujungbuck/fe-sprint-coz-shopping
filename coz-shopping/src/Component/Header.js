@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components"
+import { Icon } from '@iconify/react';
 
 const Head = styled.header`
 position: fixed;
@@ -58,6 +59,8 @@ color: #000000;
 `
 
 const Modal = styled.div`
+margin-left: auto;
+//float: right;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -65,7 +68,7 @@ width: 200px;
 height: 150px;
 padding: 10px;
 
-list-style-type: none;
+//list-style-type: none;
 font-size: 16px;
 position: absolute;
 left: 0%;
@@ -78,6 +81,16 @@ border-radius: 12px;
 box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
 `
 
+const List = styled.li`
+display: flex;
+flex: 1;
+align-items: center;
+width: 180px;
+height: 30px;
+left: 10px;
+border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+`
+
 export default function Header(){
 
     return<>
@@ -87,14 +100,15 @@ export default function Header(){
         <Title><header>COZ Shopping</header></Title>
     </div>
     <div>
-       <Logo><img src="아이콘.png" alt="메뉴"/></Logo>
+       <Logo><Icon icon="material-symbols:menu-rounded" /></Logo>
     </div>
     </Head>
     <div>
        <Modal>
-        <li>OOO님, 안녕하세요!</li>
-        <li>상품리스트 페이지</li>
-        <li>북마크 페이지</li>       
+       <Icon icon="ph:triangle-fill" style={{color:"red", marginLeft: "auto"}}/>
+        <List>OOO님, 안녕하세요!</List>
+        <List><Icon icon="simple-line-icons:present" />상품리스트 페이지</List>
+        <List><Icon icon="ic:round-star-border" />북마크 페이지</List>       
        </Modal>
     </div>
 
