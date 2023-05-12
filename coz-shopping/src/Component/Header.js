@@ -57,6 +57,26 @@ align-items: center;
 color: #000000;
 `
 
+const Modal = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 200px;
+height: 150px;
+padding: 10px;
+
+list-style-type: none;
+font-size: 16px;
+position: absolute;
+left: 0%;
+right: 0%;
+top: 12.79%;
+bottom: 0%;
+
+background: #FFFFFF;
+border-radius: 12px;
+box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+`
 
 export default function Header(){
 
@@ -67,9 +87,17 @@ export default function Header(){
         <Title><header>COZ Shopping</header></Title>
     </div>
     <div>
-       <Logo> <img src="아이콘.png" alt="메뉴"/></Logo>
+       <Logo><img src="아이콘.png" alt="메뉴"/></Logo>
     </div>
     </Head>
+    <div>
+       <Modal>
+        <li>OOO님, 안녕하세요!</li>
+        <li>상품리스트 페이지</li>
+        <li>북마크 페이지</li>       
+       </Modal>
+    </div>
+
     </>
 
 }
