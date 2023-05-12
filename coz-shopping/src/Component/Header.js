@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components"
 import { Icon } from '@iconify/react';
+import { useState } from 'react';
+
 
 const Head = styled.header`
 position: fixed;
@@ -59,6 +61,7 @@ color: #000000;
 `
 
 const Modal = styled.div`
+//display: none;
 margin-left: auto;
 //float: right;
 display: flex;
@@ -92,6 +95,8 @@ border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 `
 
 export default function Header(){
+    const [isOpen, setIsOpen] = useState(false)
+
 
     return<>
     <Head>
@@ -100,18 +105,21 @@ export default function Header(){
         <Title><header>COZ Shopping</header></Title>
     </div>
     <div>
-       <Logo><Icon icon="material-symbols:menu-rounded" /></Logo>
+       <Logo onClick={() =>  setIsOpen(isOpen ? false : true)}><Icon icon="material-symbols:menu-rounded" /></Logo>
     </div>
     </Head>
+    {isOpen ? 
     <div>
-       <Modal>
+       <Modal isOpen={isOpen}>
        <Icon icon="ph:triangle-fill" style={{color:"red", marginLeft: "auto"}}/>
         <List>OOO님, 안녕하세요!</List>
         <List><Icon icon="simple-line-icons:present" />상품리스트 페이지</List>
         <List><Icon icon="ic:round-star-border" />북마크 페이지</List>       
        </Modal>
     </div>
-
+    :
+    null
+    }
     </>
 
 }
