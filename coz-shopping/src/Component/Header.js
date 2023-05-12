@@ -2,6 +2,10 @@ import React from 'react';
 import styled from "styled-components"
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
+import {  BrowserRouter, Routes, Route, Link  } from "react-router-dom";
+import Bookmark from '../Pages/Bookmark';
+import ProductList from '../Pages/ProductList';
+import Main from '../Pages/Main';
 
 
 const Head = styled.header`
@@ -98,10 +102,10 @@ export default function Header(){
     const [isOpen, setIsOpen] = useState(false)
 
 
-    return<>
+    return    <BrowserRouter>    
     <Head>
     <div>
-       <Logo><img src="로고.png" alt="로고"/></Logo>
+       <Link to="/"><Logo><img src="로고.png" alt="로고"/></Logo></Link>
         <Title><header>COZ Shopping</header></Title>
     </div>
     <div>
@@ -109,17 +113,21 @@ export default function Header(){
     </div>
     </Head>
     {isOpen ? 
-    <div>
        <Modal isOpen={isOpen}>
        <Icon icon="ph:triangle-fill" style={{color:"red", marginLeft: "auto"}}/>
         <List>OOO님, 안녕하세요!</List>
-        <List><Icon icon="simple-line-icons:present" />상품리스트 페이지</List>
-        <List><Icon icon="ic:round-star-border" />북마크 페이지</List>       
+        <Link to="/products/list"><List><Icon icon="simple-line-icons:present" />상품리스트 페이지</List></Link>
+        <Link to="/bookmark"><List><Icon icon="ic:round-star-border" />북마크 페이지</List></Link>
        </Modal>
-    </div>
     :
     null
-    }
-    </>
+    }  
 
+
+        <Routes>
+            <Route path="/" element={<Main />}/>
+            <Route path="/products/list" element={<ProductList />}/>
+            <Route path="/bookmark" element={<Bookmark />}/>
+        </Routes>
+    </BrowserRouter> 
 }
