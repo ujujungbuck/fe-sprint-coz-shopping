@@ -30,18 +30,15 @@ export default function Header(){
                 
                     </div>
                 </div>
+                </header>
       
     {isOpen ? 
-    <div class="modalwrapper">  
-        <div class="icon">
-     <Icon icon="ph:triangle-fill"/>
-        </div>
-       <div class="modal" isOpen={isOpen}>
-            <ul>
-                <li>OOO님, 안녕하세요!</li>
-                <li><Link to="/products/list"><Icon icon="simple-line-icons:present" />상품리스트 페이지</Link></li>
-                <li><Link to="/bookmark"><Icon icon="ic:round-star-border" />북마크 페이지</Link></li>
-            </ul>
+    <div class="modal">
+        <div class='triangle'></div>
+        <div class="modalcontent" isOpen={isOpen}>
+                <p>OOO님, 안녕하세요!</p>
+                <p><Link to="/products/list"><Icon icon="simple-line-icons:present" />상품리스트 페이지</Link></p>
+                <p><Link to="/bookmark"><Icon icon="ic:round-star-border" />북마크 페이지</Link></p>
        </div>
     </div>
     :
@@ -54,6 +51,6 @@ export default function Header(){
             <Route path="/products/list" element={<ProductList />}/>
             <Route path="/bookmark" element={<Bookmark />}/>
         </Routes>
-        </header>
+
     </BrowserRouter> 
 }
