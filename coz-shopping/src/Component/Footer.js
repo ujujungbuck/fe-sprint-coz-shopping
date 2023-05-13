@@ -3,13 +3,11 @@ import styled from "styled-components"
 
 const Tail = styled.div`
 /* Footer */
-box-sizing: border-box;
 color: gray;
 padding-top: 10px;
 font-size: 13px;
-position: relative;
-width: 97%;
 height: 100px;
+text-align: center;
 
 background: #FFFFFF;
 border-top: 1px solid rgba(0, 0, 0, 0.1);
