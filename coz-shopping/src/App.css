@@ -16,4 +16,5 @@ font-weight: 400;
 line-height: 1.4;
 font-family: 'Nanum Gothic', sans-serif;
 text-decoration: none;
+z-index: 0;
 }
