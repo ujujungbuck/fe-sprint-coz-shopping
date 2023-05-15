@@ -13,7 +13,6 @@ function App() {
     <div className="App">
       <Header />
         <body>
-          여기가 바디
           <Item/>
           </body>
       <Footer />

@@ -2,6 +2,14 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from "styled-components"
+
+
+export const CardRow = styled.div`
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+`
+
 export const Card = styled.div`
 width: 264px;
 height: 264px;
@@ -11,8 +19,9 @@ height: 264px;
   border-radius: 10px;
 }
 .card-title{
-  display: flex;
-  justify-content: space-between;
+  //display: flex;
+  //justify-content: space-between;
+
 }
 .card-price{
   float: right;
@@ -22,25 +31,91 @@ height: 264px;
 
 export default function Item(){
 
-  const [data, setData] = useState("")
+  const [datas, setDatas] = useState([])
 
 useEffect(() => {
-
-  axios
-        .get('http://cozshopping.codestates-seb.link/api/v1/products?count=10')
-        .then((res) => {
-          //console.log(res.data.filter((e, i) => console.log("이게e",e, i)))
-          //console.log(res.data.filter(e => e.type === "Product"))
-          const filteredProduct = res.data.filter(e => e.type === "Product")
-          const {id, image_url, title, discountPercentage, price} = filteredProduct[0]
-          setData({id, image_url, title, discountPercentage, price})
-        })
+  loadItems()
   }, []);
 
 
+  const loadItems = async() => {
+    try{
+      let response = await axios.get('http://cozshopping.codestates-seb.link/api/v1/Products?count=4');
+      console.log(response.data)
+      setDatas(response.data)
+      //console.log(response.data.filter(e => e.type === "Brand"))
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+
+
+    return <>
+    <h2>상품리스트</h2>
+    <CardRow>
+
+{datas.map(data => {
+  if(data.type === "Brand"){
     return <Card>
-   <img className="card-image" style={{width : "200px"}} src={data.image_url} alt={data.title}></img>
-   <div className="card-title">{data.title} {data.discountPercentage}%</div>
-   <div className="card-price">{data.price}원</div>
+    <img className="card-image"
+  key={data.id}
+  src={data.brand_image_url}
+  alt={data.brand_name} />
+  <div>{data.brand_name}</div>
+  <div>관심고객수{data.follower}</div>
     </Card>
+  }
+
+  if(data.type === "Product"){
+    return <Card>
+    <img className="card-image"
+  key={data.id}
+  src={data.image_url}
+  alt={data.title} />
+  <div>{data.title}</div>
+  <div>{data.discountPercentage}%</div>
+  <div>{data.price}원</div>
+    </Card>
+  }
+
+  if(data.type === "Category"){
+    return <Card>
+    <img className="card-image"
+  key={data.id}
+  src={data.image_url}
+  alt={data.title} />
+  <div>#{data.title}</div>
+    </Card>
+  }
+
+  if(data.type === "Exhibition"){
+    return <Card>
+    <img className="card-image"
+  key={data.id}
+  src={data.image_url}
+  alt={data.title} />
+  <div>{data.title}</div>
+  <div>{data.sub_title}</div>
+    </Card>
+  }
+
+})}
+
+</CardRow>
+
+<br/>
+
+
+
+<h2>북마크리스트</h2>
+
+
+   {/* <img className="card-image" src={datas.image_url} alt={datas.title}></img>
+   <div className="card-title">{datas.title} {datas.discountPercentage}%</div>
+   <div className="card-price">{datas.price}원</div> */}
+
+    
+</>
+
 }
