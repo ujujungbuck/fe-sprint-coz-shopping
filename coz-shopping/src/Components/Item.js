@@ -4,27 +4,25 @@ import axios from 'axios';
 
 export default function Item(){
 
-    const [product, setProduct] =  useState(null)
-
-    const dataHandler = () => {
-   return axios
-  .get('http://cozshopping.codestates-seb.link/api/v1/products?count=4')
-  .then((res) => {
-    console.log(res.data[0])
-    setProduct(res.data[0].id)
-  })
-  .catch((error) => console.log(error));
-
-}
+  const [data, setData] = useState("")
 
 useEffect(() => {
-    // 컴포넌트 생성 시 아래 함수가 실행됩니다.
-    dataHandler();
+
+  axios
+        .get('http://cozshopping.codestates-seb.link/api/v1/products?count=10')
+        .then((res) => {
+          //console.log(res.data.filter((e, i) => console.log("이게e",e, i)))
+          //console.log(res.data.filter(e => e.type === "Product"))
+          const filteredProduct = res.data.filter(e => e.type === "Product")
+          const {id, image_url, title, discountPercentage, price} = filteredProduct[0]
+          setData({id, image_url, title, discountPercentage, price})
+        })
   }, []);
 
 
-    return <div>
-   <div>dddddd{product}</div>
-   <div>{setProduct}</div>
-    </div>
+    return <>
+   <img style={{width : "200px"}} src={data.image_url} alt={data.title}></img>
+   <div>{data.title} {data.discountPercentage}%</div>
+   <div>{data.price}원</div>
+    </>
 }
