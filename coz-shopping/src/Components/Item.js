@@ -1,6 +1,24 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from "styled-components"
+export const Card = styled.div`
+width: 264px;
+height: 264px;
+.card-image{
+  width: 264px;
+  height: 210px;
+  border-radius: 10px;
+}
+.card-title{
+  display: flex;
+  justify-content: space-between;
+}
+.card-price{
+  float: right;
+}
+`
+
 
 export default function Item(){
 
@@ -20,9 +38,9 @@ useEffect(() => {
   }, []);
 
 
-    return <>
-   <img style={{width : "200px"}} src={data.image_url} alt={data.title}></img>
-   <div>{data.title} {data.discountPercentage}%</div>
-   <div>{data.price}원</div>
-    </>
+    return <Card>
+   <img className="card-image" style={{width : "200px"}} src={data.image_url} alt={data.title}></img>
+   <div className="card-title">{data.title} {data.discountPercentage}%</div>
+   <div className="card-price">{data.price}원</div>
+    </Card>
 }
