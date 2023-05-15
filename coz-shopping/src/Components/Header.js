@@ -1,10 +1,7 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
-import {  BrowserRouter, Routes, Route, Link  } from "react-router-dom";
-import Bookmark from '../Pages/Bookmark';
-import ProductList from '../Pages/ProductList';
-import Main from '../Pages/Main';
+import {  Link, Routes  } from "react-router-dom";
 import styled from "styled-components"
 
 export const Head = styled.div`
@@ -62,11 +59,11 @@ export const Menu = styled.div`
 `
 
 
-export default function Header(){
+export default function Header({datas}){
     const [isOpen, setIsOpen] = useState(false)
 
 
-    return <BrowserRouter>    
+    return <>    
             <Head>
                 <div className="inner">
                     <Menu>
@@ -100,11 +97,7 @@ export default function Header(){
     }  
 
 
-        <Routes>
-            <Route path="/" element={<Main />}/>
-            <Route path="/products/list" element={<ProductList />}/>
-            <Route path="/bookmark" element={<Bookmark />}/>
-        </Routes>
+ 
 
-    </BrowserRouter> 
+    </> 
 }

@@ -1,9 +1,10 @@
 import React from 'react';
+import Item from '../Components/Item';
 
 export default function Main(){
 
     return<>
-    main페이지입니다.
+   <Item />
     </>
 
 }
