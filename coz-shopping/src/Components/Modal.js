@@ -25,6 +25,7 @@ justify-content: center;
     font-size: 30px;
     margin-top: 730px;
     margin-right: 500px;
+    color: #ffff;
 }
 span{
     font-weight: 800;
