@@ -6,7 +6,7 @@ import styled from "styled-components"
 
 export const CardRow = styled.div`
 display: flex;
-justify-content: space-evenly;
+justify-content: space-between;
 align-items: center;
 `
 
@@ -52,7 +52,6 @@ useEffect(() => {
 
 
     return <>
-    <h2>상품리스트</h2>
     <CardRow>
 
 {datas.map(data => {
@@ -103,18 +102,6 @@ useEffect(() => {
 })}
 
 </CardRow>
-
-<br/>
-
-
-
-<h2>북마크리스트</h2>
-
-
-   {/* <img className="card-image" src={datas.image_url} alt={datas.title}></img>
-   <div className="card-title">{datas.title} {datas.discountPercentage}%</div>
-   <div className="card-price">{datas.price}원</div> */}
-
     
 </>
 

@@ -4,13 +4,14 @@ import styled from "styled-components"
 const Tail = styled.div`
 /* Footer */
 color: gray;
+height: 400px;
 padding-top: 10px;
 font-size: 13px;
-height: 100px;
 text-align: center;
-
+margin-top: 150px;
 background: #FFFFFF;
 border-top: 1px solid rgba(0, 0, 0, 0.1);
+z-index: 1400;
 `
 
 export default function Footer(){

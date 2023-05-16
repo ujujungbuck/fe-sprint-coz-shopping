@@ -9,6 +9,8 @@ export const Head = styled.div`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
     text-decoration: none;
+    z-index: 0;
+    margin-bottom: 100px;
     .inner {
         height: 60px;
         width: 1440px;
@@ -16,18 +18,20 @@ export const Head = styled.div`
     }
     .logo{
         margin-right: 10px;
+        display: flex;
     }
     .title{
-        margin-right: 10px;
+        font-style: bold;
+        font-size: 30px;
+        margin-left: 10px;
     }
     .icon{
-        margin-left: 1250px;
+        margin-left: 0;
     }
 `
 
 export const Modal = styled.div`
-    max-width: 200px;
-    height: 150px;
+    height: 120px;
     box-shadow: 0px 0px 6px 0px #00000040;
     background-color: #FFFF;
     border-radius: 10px;
@@ -35,10 +39,13 @@ export const Modal = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 1570px;
-    margin-right: 0;
+    margin-left: 1310px;
+    margin-right: 1%;
+    position: absolute;
+    padding: 15px;
+    z-index: 1300;
+    position: fixed;
 
-    z-index: 1;
     .triangle{
         width: 30px;
         background-color: #FFFF;
@@ -47,7 +54,8 @@ export const Modal = styled.div`
         box-shadow:-2px 2px rgb(178 178 178 / 0.3);
         transform: rotate(135deg);
         position: absolute;
-        top: 52px;
+        top: -12px;
+        margin-left: 50%;
     }
 `
 
@@ -55,6 +63,7 @@ export const Modal = styled.div`
 export const Menu = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 100%;
 `
 
@@ -70,20 +79,16 @@ export default function Header({datas}){
 
                         <div className="logo">
                             <Link to="/"><img src="codelogo.png" alt="logo"/></Link>
-                        </div>
 
                         <div className="title">COZ Shopping</div>
-                    
+                        </div>
                         <div className="icon">
                             <Icon onClick={() =>  setIsOpen(isOpen ? false : true)} icon="material-symbols:menu-rounded" />
                         </div>
                     
-                
                     </Menu>
-                </div>
-                </Head>
-      
-    {isOpen ? 
+
+                    {isOpen ? 
     <Modal>
         <div className='triangle'></div>
         <div className="modalcontent" isOpen={isOpen}>
@@ -94,7 +99,15 @@ export default function Header({datas}){
     </Modal>
     :
     null
-    }  
+    } 
+
+                </div>
+
+ 
+
+                </Head>
+      
+
 
 
  
