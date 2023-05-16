@@ -87,7 +87,6 @@ export default function Header({datas}){
                         </div>
                     
                     </Menu>
-
                     {isOpen ? 
     <Modal>
         <div className='triangle'></div>
@@ -100,17 +99,7 @@ export default function Header({datas}){
     :
     null
     } 
-
                 </div>
-
- 
-
                 </Head>
-      
-
-
-
- 
-
     </> 
 }

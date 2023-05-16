@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from "styled-components"
+import Modal from "./Modal";
 
 
 export const CardRow = styled.div`
@@ -54,6 +55,14 @@ height: 264px;
 export default function Item(){
 
   const [datas, setDatas] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalSelected, setModalSelected] = useState({})
+
+
+  const modalHandler = (data) => {
+    setModalOpen(true)
+    setModalSelected(data)
+  }
 
 useEffect(() => {
   loadItems()
@@ -64,23 +73,30 @@ useEffect(() => {
     try{
       let response = await axios.get('http://cozshopping.codestates-seb.link/api/v1/Products?count=4');
       setDatas(response.data)
+      //console.log(response.data)
     }catch(error){
       console.log(error)
     }
   }
 
 
-    return <>
+
+    return( <>
     <CardRow>
 
-{datas.map(data => {
+{datas.map((data) => {
+
+
   if(data.type === "Brand"){
 
     return <Card>
     <img className="card-image"
+  onClick={() => modalHandler(data)}
   key={data.id}
   src={data.brand_image_url}
-  alt={data.brand_name} />
+  alt={data.brand_name}
+  id={data.id} 
+  />
   <div className="title">{data.brand_name}  
     <div className="follower">관심고객수
       <div className="follower-number">
@@ -94,10 +110,12 @@ useEffect(() => {
   if(data.type === "Product"){
     return <Card>
     <img className="card-image"
+  onClick={() => modalHandler(data)}
   key={data.id}
   src={data.image_url}
-  alt={data.title} />
-  <div className="title">{data.title}
+  alt={data.title}
+  id={data.id} />
+  <div className="title"   onClick={modalHandler} >{data.title}
     <div className="percentage">{data.discountPercentage}%  
       <div className="price">   
          {`${data.price}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
@@ -110,9 +128,11 @@ useEffect(() => {
   if(data.type === "Category"){
     return <Card>
     <img className="card-image"
+ onClick={() => modalHandler(data)}
   key={data.id}
   src={data.image_url}
-  alt={data.title} />
+  alt={data.title}
+  id={data.id}/>
   <div className="title">#{data.title}</div>
     </Card>
   }
@@ -120,18 +140,27 @@ useEffect(() => {
   if(data.type === "Exhibition"){
     return <Card>
     <img className="card-image"
+onClick={() => modalHandler(data)}
   key={data.id}
   src={data.image_url}
-  alt={data.title} />
+  alt={data.title}
+  id={data.id} />
   <div className="title">{data.title}</div>
   <div>{data.sub_title}</div>
     </Card>
+  }else{
+    <>페이지 구현중입니다.</>
   }
 
 })}
 
 </CardRow>
-    
-</>
 
+  {modalOpen && <Modal 
+  {...modalSelected}
+  setModalOpen={setModalOpen}
+  />}
+
+</>
+    )
 }
