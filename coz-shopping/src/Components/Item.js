@@ -53,13 +53,9 @@ export const Card = styled.div`
   .bookmark {
     font-size: 40px;
     margin-left: 270px;
-    color: red;
-
-    &.active {
-      color: yellow;
-      font-size: 40px;
-      margin-left: 270px;
-    }
+    margin-top: -50px;
+    z-index: 1200;
+    position: absolute;
   }
 `;
 
@@ -70,9 +66,15 @@ export default function Item() {
   const [bookmarked, setBookmarked] = useState(false);
   const [bookmarkSelected, setBookmarkSelected] = useState({});
 
-  const bookmarkHandler = (data) => {
-    setBookmarked(true);
-    setBookmarkSelected(data);
+  const bookmarkHandler = (data, e) => {
+    console.log(e.currentTarget);
+
+    setBookmarked(
+      Number(data.id) === Number(e.currentTarget.id) && bookmarked
+        ? false
+        : true
+    );
+    console.log("왜안대?");
   };
 
   const modalHandler = (data) => {
@@ -112,10 +114,11 @@ export default function Item() {
                 />
                 <Icon
                   icon="ic:round-star"
-                  onClick={() => bookmarkHandler(data)}
-                  className={"bookmark" + (bookmarked ? "active" : "")}
+                  onClick={(e) => bookmarkHandler(data, e)}
+                  className="bookmark"
+                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
                   bookmarked={bookmarked}
-                  setBookmarked={setBookmarked}
+                  id={data.id}
                 />
                 <div className="title">
                   {data.brand_name}
@@ -144,13 +147,12 @@ export default function Item() {
                   id={data.id}
                 />
                 <Icon
-                  className="bookmark"
                   icon="ic:round-star"
-                  style={{ color: "white" }}
-                  onClick={() => bookmarkHandler(data)}
-                  bookmarked={
-                    bookmarked ? { color: "yellow" } : { color: "red" }
-                  }
+                  onClick={(e) => bookmarkHandler(data, e)}
+                  className="bookmark"
+                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
+                  bookmarked={bookmarked}
+                  id={data.id}
                 />
                 <div className="title" onClick={modalHandler}>
                   {data.title}
@@ -180,13 +182,12 @@ export default function Item() {
                   id={data.id}
                 />
                 <Icon
-                  className="bookmark"
                   icon="ic:round-star"
-                  style={{ color: "white" }}
-                  onClick={() => bookmarkHandler(data)}
-                  bookmarked={
-                    bookmarked ? { color: "yellow" } : { color: "red" }
-                  }
+                  onClick={(e) => bookmarkHandler(data, e)}
+                  className="bookmark"
+                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
+                  bookmarked={bookmarked}
+                  id={data.id}
                 />
                 <div className="title">#{data.title}</div>
               </Card>
@@ -205,13 +206,12 @@ export default function Item() {
                   id={data.id}
                 />
                 <Icon
-                  className="bookmark"
                   icon="ic:round-star"
-                  style={{ color: "white" }}
-                  onClick={() => bookmarkHandler(data)}
-                  bookmarked={
-                    bookmarked ? { color: "yellow" } : { color: "red" }
-                  }
+                  onClick={(e) => bookmarkHandler(data, e)}
+                  className="bookmark"
+                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
+                  bookmarked={bookmarked}
+                  id={data.id}
                 />
                 <div className="title">{data.title}</div>
                 <div>{data.sub_title}</div>
