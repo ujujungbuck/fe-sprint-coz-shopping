@@ -73,7 +73,6 @@ export default function Item() {
   const bookmarkHandler = (data) => {
     setBookmarked(true);
     setBookmarkSelected(data);
-    console.log(data);
   };
 
   const modalHandler = (data) => {
@@ -116,6 +115,7 @@ export default function Item() {
                   onClick={() => bookmarkHandler(data)}
                   className={"bookmark" + (bookmarked ? "active" : "")}
                   bookmarked={bookmarked}
+                  setBookmarked={setBookmarked}
                 />
                 <div className="title">
                   {data.brand_name}
