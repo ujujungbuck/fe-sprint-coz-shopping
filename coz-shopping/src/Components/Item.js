@@ -1,166 +1,229 @@
 import React from "react";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import styled from "styled-components"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
 import Modal from "./Modal";
-
+import { Icon } from "@iconify/react";
 
 export const CardRow = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-`
-
-export const Card = styled.div`
-width: 320px;
-height: 264px;
-.card-image{
-  width: 320px;
-  height: 210px;
-  border-radius: 10px;
-}
-.title{
-  font-weight: 800;
-  margin-top: 10px;
-  font-size: large;
   display: flex;
   justify-content: space-between;
-}
+  align-items: center;
+`;
 
-.follower{
-  display: flex;
-  flex-direction:column;
-  text-align: right;
-  .follower-number{
-    font-weight: 400;
+export const Card = styled.div`
+  width: 320px;
+  height: 264px;
+  .card-image {
+    width: 320px;
+    height: 210px;
+    border-radius: 10px;
   }
-}
-
-.percentage{
-  color: #452CDD;
-  text-align: right;
-  font-weight: 800;
-  .price{
-    font-weight: 500;
-    color: #333;
-  }
-}
-
-.card-price{
-  float: right;
-}
-`
-
-
-export default function Item(){
-
-  const [datas, setDatas] = useState([])
-  const [modalOpen, setModalOpen] = useState(false)
-  const [modalSelected, setModalSelected] = useState({})
-
-
-  const modalHandler = (data) => {
-    setModalOpen(true)
-    setModalSelected(data)
+  .title {
+    font-weight: 800;
+    margin-top: 10px;
+    font-size: large;
+    display: flex;
+    justify-content: space-between;
   }
 
-useEffect(() => {
-  loadItems()
-  }, []);
-
-
-  const loadItems = async() => {
-    try{
-      let response = await axios.get('http://cozshopping.codestates-seb.link/api/v1/Products?count=4');
-      setDatas(response.data)
-      //console.log(response.data)
-    }catch(error){
-      console.log(error)
+  .follower {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    .follower-number {
+      font-weight: 400;
     }
   }
 
-
-
-    return( <>
-    <CardRow>
-
-{datas.map((data) => {
-
-
-  if(data.type === "Brand"){
-
-    return <Card>
-    <img className="card-image"
-  onClick={() => modalHandler(data)}
-  key={data.id}
-  src={data.brand_image_url}
-  alt={data.brand_name}
-  id={data.id} 
-  />
-  <div className="title">{data.brand_name}  
-    <div className="follower">관심고객수
-      <div className="follower-number">
-        {`${data.follower}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-      </div> 
-    </div>
-    </div>
-    </Card>
+  .percentage {
+    color: #452cdd;
+    text-align: right;
+    font-weight: 800;
+    .price {
+      font-weight: 500;
+      color: #333;
+    }
   }
 
-  if(data.type === "Product"){
-    return <Card>
-    <img className="card-image"
-  onClick={() => modalHandler(data)}
-  key={data.id}
-  src={data.image_url}
-  alt={data.title}
-  id={data.id} />
-  <div className="title"   onClick={modalHandler} >{data.title}
-    <div className="percentage">{data.discountPercentage}%  
-      <div className="price">   
-         {`${data.price}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
-      </div>
-    </div>
-  </div> 
-    </Card>
+  .card-price {
+    float: right;
   }
 
-  if(data.type === "Category"){
-    return <Card>
-    <img className="card-image"
- onClick={() => modalHandler(data)}
-  key={data.id}
-  src={data.image_url}
-  alt={data.title}
-  id={data.id}/>
-  <div className="title">#{data.title}</div>
-    </Card>
+  .bookmark {
+    font-size: 40px;
+    margin-left: 270px;
+    color: red;
+
+    &.active {
+      color: yellow;
+      font-size: 40px;
+      margin-left: 270px;
+    }
   }
+`;
 
-  if(data.type === "Exhibition"){
-    return <Card>
-    <img className="card-image"
-onClick={() => modalHandler(data)}
-  key={data.id}
-  src={data.image_url}
-  alt={data.title}
-  id={data.id} />
-  <div className="title">{data.title}</div>
-  <div>{data.sub_title}</div>
-    </Card>
-  }else{
-    <>페이지 구현중입니다.</>
-  }
+export default function Item() {
+  const [datas, setDatas] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSelected, setModalSelected] = useState({});
+  const [bookmarked, setBookmarked] = useState(false);
+  const [bookmarkSelected, setBookmarkSelected] = useState({});
 
-})}
+  const bookmarkHandler = (data) => {
+    setBookmarked(true);
+    setBookmarkSelected(data);
+    console.log(data);
+  };
 
-</CardRow>
+  const modalHandler = (data) => {
+    setModalOpen(true);
+    setModalSelected(data);
+  };
 
-  {modalOpen && <Modal 
-  {...modalSelected}
-  setModalOpen={setModalOpen}
-  />}
+  useEffect(() => {
+    loadItems();
+  }, []);
 
-</>
-    )
+  const loadItems = async () => {
+    try {
+      let response = await axios.get(
+        "http://cozshopping.codestates-seb.link/api/v1/Products?count=4"
+      );
+      setDatas(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <>
+      <CardRow>
+        {datas.map((data) => {
+          if (data.type === "Brand") {
+            return (
+              <Card>
+                <img
+                  className="card-image"
+                  onClick={() => modalHandler(data)}
+                  key={data.id}
+                  src={data.brand_image_url}
+                  alt={data.brand_name}
+                  id={data.id}
+                />
+                <Icon
+                  icon="ic:round-star"
+                  onClick={() => bookmarkHandler(data)}
+                  className={"bookmark" + (bookmarked ? "active" : "")}
+                  bookmarked={bookmarked}
+                />
+                <div className="title">
+                  {data.brand_name}
+                  <div className="follower">
+                    관심고객수
+                    <div className="follower-number">
+                      {`${data.follower}`
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            );
+          }
+
+          if (data.type === "Product") {
+            return (
+              <Card>
+                <img
+                  className="card-image"
+                  onClick={() => modalHandler(data)}
+                  key={data.id}
+                  src={data.image_url}
+                  alt={data.title}
+                  id={data.id}
+                />
+                <Icon
+                  className="bookmark"
+                  icon="ic:round-star"
+                  style={{ color: "white" }}
+                  onClick={() => bookmarkHandler(data)}
+                  bookmarked={
+                    bookmarked ? { color: "yellow" } : { color: "red" }
+                  }
+                />
+                <div className="title" onClick={modalHandler}>
+                  {data.title}
+                  <div className="percentage">
+                    {data.discountPercentage}%
+                    <div className="price">
+                      {`${data.price}`
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      원
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            );
+          }
+
+          if (data.type === "Category") {
+            return (
+              <Card>
+                <img
+                  className="card-image"
+                  onClick={() => modalHandler(data)}
+                  key={data.id}
+                  src={data.image_url}
+                  alt={data.title}
+                  id={data.id}
+                />
+                <Icon
+                  className="bookmark"
+                  icon="ic:round-star"
+                  style={{ color: "white" }}
+                  onClick={() => bookmarkHandler(data)}
+                  bookmarked={
+                    bookmarked ? { color: "yellow" } : { color: "red" }
+                  }
+                />
+                <div className="title">#{data.title}</div>
+              </Card>
+            );
+          }
+
+          if (data.type === "Exhibition") {
+            return (
+              <Card>
+                <img
+                  className="card-image"
+                  onClick={() => modalHandler(data)}
+                  key={data.id}
+                  src={data.image_url}
+                  alt={data.title}
+                  id={data.id}
+                />
+                <Icon
+                  className="bookmark"
+                  icon="ic:round-star"
+                  style={{ color: "white" }}
+                  onClick={() => bookmarkHandler(data)}
+                  bookmarked={
+                    bookmarked ? { color: "yellow" } : { color: "red" }
+                  }
+                />
+                <div className="title">{data.title}</div>
+                <div>{data.sub_title}</div>
+              </Card>
+            );
+          } else {
+            <>페이지 구현중입니다.</>;
+          }
+        })}
+      </CardRow>
+
+      {modalOpen && <Modal {...modalSelected} setModalOpen={setModalOpen} />}
+    </>
+  );
 }
