@@ -17,9 +17,9 @@ function App({datas}) {
       <Header style={{zIndex:"1200"}} />
       <div className='body'>
             <Routes>
-            <Route style={{zIndex:"0"}} path="/" element={<Main datas={datas} />}/>
-            <Route style={{zIndex:"0"}} path="/products/list" element={<ProductList datas={datas} />}/>
-            <Route style={{zIndex:"0"}} path="/bookmark" element={<Bookmark datas={datas} />}/>
+            <Route path="/" element={<Main datas={datas} />}/>
+            <Route path="/products/list" element={<ProductList datas={datas} />}/>
+            <Route path="/bookmark" element={<Bookmark datas={datas} />}/>
           </Routes>
           </div>
       <Footer />
