@@ -67,14 +67,13 @@ export default function Item() {
   const [bookmarkSelected, setBookmarkSelected] = useState({});
 
   const bookmarkHandler = (data, e) => {
-    console.log(e.currentTarget);
+    setBookmarked(bookmarked ? false : true);
+    //if (e.currentTarget.id === data.id) {
+    // data.id = data.id + "bookmarked";
+    //console.log(data.id);
 
-    setBookmarked(
-      Number(data.id) === Number(e.currentTarget.id) && bookmarked
-        ? false
-        : true
-    );
-    console.log("왜안대?");
+    setBookmarkSelected({ ...{ id: data.id, bookmarked } });
+    console.log(bookmarkSelected);
   };
 
   const modalHandler = (data) => {
@@ -114,11 +113,12 @@ export default function Item() {
                 />
                 <Icon
                   icon="ic:round-star"
-                  onClick={(e) => bookmarkHandler(data, e)}
+                  onChange={(e) => bookmarkHandler(data, e)}
                   className="bookmark"
                   style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
                   bookmarked={bookmarked}
                   id={data.id}
+                  alt={data.brand_name}
                 />
                 <div className="title">
                   {data.brand_name}
@@ -188,6 +188,7 @@ export default function Item() {
                   style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
                   bookmarked={bookmarked}
                   id={data.id}
+                  alt={data.title}
                 />
                 <div className="title">#{data.title}</div>
               </Card>
@@ -212,6 +213,7 @@ export default function Item() {
                   style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
                   bookmarked={bookmarked}
                   id={data.id}
+                  alt={data.title}
                 />
                 <div className="title">{data.title}</div>
                 <div>{data.sub_title}</div>
