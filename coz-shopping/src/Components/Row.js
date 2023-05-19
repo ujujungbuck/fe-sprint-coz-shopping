@@ -1,6 +1,5 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../api/axios"; //생성한 인스턴스에서 가져오게
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
 import { Icon } from "@iconify/react";
@@ -9,9 +8,12 @@ export const CardRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
 `;
 
 export const Card = styled.div`
+  margin: 20px;
   width: 320px;
   height: 264px;
   .card-image {
@@ -59,8 +61,19 @@ export const Card = styled.div`
   }
 `;
 
-export default function Item() {
+const Row = ({ title, id, fetchUrl }) => {
   const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    const response = await axios.get(fetchUrl);
+    //console.log(response);
+    setDatas(response.data);
+  };
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSelected, setModalSelected] = useState({});
   const [bookmarked, setBookmarked] = useState(false);
@@ -79,21 +92,6 @@ export default function Item() {
   const modalHandler = (data) => {
     setModalOpen(true);
     setModalSelected(data);
-  };
-
-  useEffect(() => {
-    loadItems();
-  }, []);
-
-  const loadItems = async () => {
-    try {
-      let response = await axios.get(
-        "http://cozshopping.codestates-seb.link/api/v1/Products?count=4"
-      );
-      setDatas(response.data);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -228,4 +226,6 @@ export default function Item() {
       {modalOpen && <Modal {...modalSelected} setModalOpen={setModalOpen} />}
     </>
   );
-}
+};
+
+export default Row;

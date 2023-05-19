@@ -76,7 +76,7 @@ export default function Header({ datas }) {
           <Menu>
             <div className="logo">
               <Link to="/">
-                <img src="codelogo.png" alt="logo" />
+                <img src="/codelogo.png" alt="logo" />
               </Link>
 
               <div className="title">COZ Shopping</div>
