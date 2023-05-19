@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import { Icon } from "@iconify/react";
 import BrandCard from "./BrandCard";
+import ProductCard from "./ProductCard";
+import CategoryCard from "./CategoryCard";
+import ExhibitionCard from "./ExhibitionCard";
 
 export const CardRow = styled.div`
   display: flex;
@@ -79,6 +82,7 @@ const Row = ({ title, id, fetchUrl }) => {
   const [modalSelected, setModalSelected] = useState({});
   const [bookmarked, setBookmarked] = useState(false);
   const [bookmarkSelected, setBookmarkSelected] = useState({});
+  //const [catogorized, setCategorized] = useState
 
   const bookmarkHandler = (data, e) => {
     if (e.currentTarget.id === data.id) {
@@ -110,34 +114,7 @@ const Row = ({ title, id, fetchUrl }) => {
           if (data.type === "Product") {
             return (
               <Card>
-                <img
-                  className="card-image"
-                  onClick={() => modalHandler(data)}
-                  key={data.id}
-                  src={data.image_url}
-                  alt={data.title}
-                  id={data.id}
-                />
-                <Icon
-                  icon="ic:round-star"
-                  onClick={(e) => bookmarkHandler(data, e)}
-                  className="bookmark"
-                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
-                  bookmarked={bookmarked}
-                  id={data.id}
-                />
-                <div className="title" onClick={modalHandler}>
-                  {data.title}
-                  <div className="percentage">
-                    {data.discountPercentage}%
-                    <div className="price">
-                      {`${data.price}`
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                      원
-                    </div>
-                  </div>
-                </div>
+                <ProductCard data={data} />
               </Card>
             );
           }
@@ -145,24 +122,7 @@ const Row = ({ title, id, fetchUrl }) => {
           if (data.type === "Category") {
             return (
               <Card>
-                <img
-                  className="card-image"
-                  onClick={() => modalHandler(data)}
-                  key={data.id}
-                  src={data.image_url}
-                  alt={data.title}
-                  id={data.id}
-                />
-                <Icon
-                  icon="ic:round-star"
-                  onClick={(e) => bookmarkHandler(data, e)}
-                  className="bookmark"
-                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
-                  bookmarked={bookmarked}
-                  id={data.id}
-                  alt={data.title}
-                />
-                <div className="title">#{data.title}</div>
+                <CategoryCard data={data} />
               </Card>
             );
           }
@@ -170,25 +130,7 @@ const Row = ({ title, id, fetchUrl }) => {
           if (data.type === "Exhibition") {
             return (
               <Card>
-                <img
-                  className="card-image"
-                  onClick={() => modalHandler(data)}
-                  key={data.id}
-                  src={data.image_url}
-                  alt={data.title}
-                  id={data.id}
-                />
-                <Icon
-                  icon="ic:round-star"
-                  onClick={(e) => bookmarkHandler(data, e)}
-                  className="bookmark"
-                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
-                  bookmarked={bookmarked}
-                  id={data.id}
-                  alt={data.title}
-                />
-                <div className="title">{data.title}</div>
-                <div>{data.sub_title}</div>
+                <ExhibitionCard data={data} />
               </Card>
             );
           } else {
