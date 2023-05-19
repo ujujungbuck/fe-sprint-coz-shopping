@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Category = () => {
+  const categoryHandler = (data, e) => {
+    //setCategory(data)
+    console.log(e);
+  };
+
   return (
     <Container>
       <Wrap>
@@ -21,7 +26,11 @@ const Category = () => {
         기획전
       </Wrap>
       <Wrap>
-        <img src="/brand.png" alt="브랜드" />
+        <img
+          src="/brand.png"
+          alt="브랜드"
+          onClick={(e) => categoryHandler(e)}
+        />
         브랜드
       </Wrap>
     </Container>

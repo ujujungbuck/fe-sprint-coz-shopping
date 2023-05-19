@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
 import { Icon } from "@iconify/react";
+import BrandCard from "./BrandCard";
 
 export const CardRow = styled.div`
   display: flex;
@@ -101,34 +102,7 @@ const Row = ({ title, id, fetchUrl }) => {
           if (data.type === "Brand") {
             return (
               <Card>
-                <img
-                  className="card-image"
-                  onClick={() => modalHandler(data)}
-                  key={data.id}
-                  src={data.brand_image_url}
-                  alt={data.brand_name}
-                  id={data.id}
-                />
-                <Icon
-                  icon="ic:round-star"
-                  onChange={(e) => bookmarkHandler(data, e)}
-                  className="bookmark"
-                  style={bookmarked ? { color: "#FFD361" } : { color: "#fff" }}
-                  bookmarked={bookmarked}
-                  id={data.id}
-                  alt={data.brand_name}
-                />
-                <div className="title">
-                  {data.brand_name}
-                  <div className="follower">
-                    관심고객수
-                    <div className="follower-number">
-                      {`${data.follower}`
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                    </div>
-                  </div>
-                </div>
+                <BrandCard data={data} />
               </Card>
             );
           }
