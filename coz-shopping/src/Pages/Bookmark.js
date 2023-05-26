@@ -1,10 +1,7 @@
-import React from 'react';
+import React from "react";
 
-
-function Bookmark() {
-  return (
-    <div>bookmark페이지 구현중</div>
-  );
+function Bookmark({ datas }) {
+  return <div>bookmark페이지 구현중입니다.</div>;
 }
 
 export default Bookmark;
