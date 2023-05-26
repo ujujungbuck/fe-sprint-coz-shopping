@@ -1,0 +1,13 @@
+.Toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  border: transparent;
+  border-radius: 8px;
+  width: 200px;
+  padding: 2%;
+  background-color: #cc66cc;
+  font-weight: 600;
+}
